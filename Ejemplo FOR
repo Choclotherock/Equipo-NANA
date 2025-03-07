@@ -1,4 +1,8 @@
-# Este programa usa un bucle FOR para calcular la suma de los primeros 10 números naturales.
+# ESTE CÓDIGO MUESTRA UN EJEMPLO COMENTADO DE EL USO DE LA FUNCIÓN "FOR" EN PYTHON
+
+# 2025 / 07/ 03 - V. 1. 0. 1 - SE AGREGA ECANBEZADO AL CÓDIGO
+
+# TRABAJÓ: JULIANA HERNÁNDEZ HERNÁNDEZ
 
 # Inicializamos una variable para almacenar la suma total
 suma_total = 0  
