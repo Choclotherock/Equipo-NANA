@@ -1,0 +1,33 @@
+# ESTE CÓDIGO MUESTRA UN EJEMPLO DEL USO DEL WHILE EN PYTHON
+
+# 2025 / 03/ 07 - V. 1. 0. 0 - SE AGREGAN EL CÓDIGO Y ECANBEZADO AL CÓDIGO
+
+# TRABAJÓ: JULIANA HERNÁNDEZ HERNÁNDEZ
+
+
+# Este programa genera un número secreto y le pide al usuario que lo adivine.
+# Utiliza un bucle WHILE para permitir múltiples intentos hasta que el usuario acierte.
+
+import random  # Importamos la librería random para generar un número aleatorio
+
+# Generamos un número secreto entre 1 y 20
+numero_secreto = random.randint(1, 20)  
+
+# Variable para contar los intentos
+intentos = 0  
+
+print("¡Bienvenido al juego de adivinanza!")
+print("He elegido un número entre 1 y 20. ¡Intenta adivinarlo!\n")
+
+# Bucle WHILE que se ejecuta hasta que el usuario adivine el número
+while True:  
+    intento = int(input("Introduce tu número: "))  # Pedimos un número al usuario
+    intentos += 1  # Aumentamos el contador de intentos
+
+    if intento < numero_secreto:
+        print("El número es mayor. Intenta de nuevo.\n")
+    elif intento > numero_secreto:
+        print("El número es menor. Intenta de nuevo.\n")
+    else:
+        print(f"¡Felicidades! Adivinaste el número {numero_secreto} en {intentos} intentos.")
+        break  # Salimos del bucle cuando el usuario acierta
