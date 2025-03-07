@@ -1,0 +1,12 @@
+# Este programa usa un bucle FOR para calcular la suma de los primeros 10 números naturales.
+
+# Inicializamos una variable para almacenar la suma total
+suma_total = 0  
+
+# Usamos un bucle for para recorrer los números del 1 al 10
+for numero in range(1, 11):  # range(1, 11) genera los números del 1 al 10
+    suma_total += numero  # Sumamos cada número al total acumulado
+    print(f"Sumando {numero}, suma actual: {suma_total}")  # Mostramos el progreso de la suma
+
+# Al finalizar el bucle, mostramos el resultado final
+print(f"\nLa suma de los primeros 10 números naturales es: {suma_total}")
