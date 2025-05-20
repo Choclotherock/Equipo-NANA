@@ -4,7 +4,7 @@
 ### Aqui una pequeña descripccion de cada uno
 
 ### Estas son hechas sin ninguna clase de efecto, solamente entrada y salida de datos "puros"
-Grabacion 1: Esta fue hecha con arduino, se nota una alta distorcion dGrel audio, como que se esta cortando hasta cierto punto
+- Grabacion 1: Esta fue hecha con arduino, se nota una alta distorcion dGrel audio, como que se esta cortando hasta cierto punto
 - Grabacion 2: Solamente ruido por desconexcion del instrumento
 - Grabacion 3: Nada
 - Grabacion 4: Nada
@@ -23,7 +23,7 @@ Grabacion 1: Esta fue hecha con arduino, se nota una alta distorcion dGrel audio
 - Grabacion 15: Ruido
 - Grabacion 16: Ruido
 
-### A partir de aqui se intento con una modifiacion hacia el offset ya que se pensaba era el problema
+### A partir de aqui se intento con una modificacion hacia el offset ya que se pensaba era el problema
 ## AUDIO MUY FUERTE BAJAR EL VOLUMEN
 - Grabacion 17: Un ruido demasiado fuerte que no parece seguir ningun patron
 - Grabacion 18: Ruido fuerte
@@ -35,7 +35,7 @@ Grabacion 1: Esta fue hecha con arduino, se nota una alta distorcion dGrel audio
 - Grabacion 22: Un sonido de guitarra claro, con algo de ruido tenue, asi que es aceptabale
 - Grabacion 23: No se introdujo señal para probar una audio puramente de ruido
 - Grabacion 24: Mas pruebas con la guitarra
-- Grabacion 25: RUIDO FUERTE otro intento de usar 16 bits con el nuevo codigo, sin resultados
+- Grabacion 25: **RUIDO FUERTE** otro intento de usar 16 bits con el nuevo codigo, sin resultados
 - Grabacion 26: Pruebas con diferentes rasguos
 - Grabacion 27: Ruido de prueba
 
