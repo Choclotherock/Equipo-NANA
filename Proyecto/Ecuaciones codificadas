@@ -1,0 +1,45 @@
+//V.1.0.0
+#define ENTRADA 34 // Define el pin de entrada analógica que se utilizará para leer datos
+
+// Función para mapear un valor de un rango a otro rango
+float mapFloat(float x, float in_min, float in_max, float out_min, float out_max) {
+  // Aplica la fórmula de mapeo lineal para transformar el valor x
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+void setup() {
+  Serial.begin(9600); // Inicializa la comunicación serie a 9600 baudios
+  // Imprime los encabezados para el plotter de datos, separados por tabulaciones
+  Serial.println("x\tR1\tR2\tR3\tR4\tR5\tR6\tR7");
+}
+
+void loop() {
+  float e = 2.71828; // Valor de la constante matemática e (base de los logaritmos naturales)
+  float lectura = analogRead(ENTRADA); // Lee el valor analógico del pin definido (ENTRADA)
+  // Mapea la lectura del rango [0, 4096] al rango [-0.10, 0.10]
+  float x = mapFloat(lectura, 0, 4096, -0.10, 0.10);
+  
+  // Se calcula los 6 resultados utilizando una función exponencial para cada uno
+  float Resultado1 = (0.4 / (1 + pow(e, 100 * (x + 0.03)))) - 0.2;
+  float Resultado2 = (0.6 / (1 + pow(e, 90 * (x + 0.02)))) - 0.3;
+  float Resultado3 = (0.8 / (1 + pow(e, 90 * (x + 0.01)))) - 0.4;
+  float Resultado4 = (1.0 / (1 + pow(e, 90 * (x + 0.01)))) - 0.5;
+  float Resultado5 = (1.2 / (1 + pow(e, 70 * (x + 0.02)))) - 0.6;
+  float Resultado6 = (1.4 / (1 + pow(e, 60 * (x - 0.03)))) - 0.7;
+  float Resultado7 = (1.6 / (1 + pow(e, 65 * (x - 0.04)))) - 0.8;
+  // Calcula el promedio de todos los resultados
+  float ResultadoPROMEDIO = (Resultado1 + Resultado2 + Resultado3 + Resultado4 + Resultado5 + Resultado6 + Resultado7) / 7;
+
+  // Se imprime x primero y luego los resultados, todo en una sola línea, separados por tabulaciones
+  Serial.print(x, 4); Serial.print('\t'); // Imprime x con 4 decimales
+  Serial.print(Resultado1, 6); Serial.print('\t'); // Se imprimen los Resultados del 1 al 7 con 6 decimales
+  Serial.print(Resultado2, 6); Serial.print('\t'); 
+  Serial.print(Resultado3, 6); Serial.print('\t'); 
+  Serial.print(Resultado4, 6); Serial.print('\t'); 
+  Serial.print(Resultado5, 6); Serial.print('\t'); 
+  Serial.print(Resultado6, 6); Serial.print('\t');
+  Serial.print(Resultado7, 6); Serial.print('\t'); 
+  Serial.println(ResultadoPROMEDIO, 6); // Imprime el promedio y finaliza la línea
+
+  delay(200); // Espera 200 milisegundos antes de la siguiente iteración del bucle
+}
