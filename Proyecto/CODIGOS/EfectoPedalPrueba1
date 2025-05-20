@@ -1,0 +1,25 @@
+//V.1.0.0
+#define ENTRADA 34  // Pin analógico conectado al circuito offset
+//Definimos el pin de lectura de datos del sensor
+
+//Mapeo del valor del rango con numeros flotantes 
+float mapFloat(float x, float in_min, float in_max, float out_min, float out_max) {
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+void setup() {
+  Serial.begin(115200);  // Aumenta la velocidad para evitar cuellos de botella
+}
+
+void loop() {
+  float e = 2.71828; //Definir constante 
+  float lectura = analogRead(ENTRADA); //Leer datos del analogico 
+  float x = mapFloat(lectura, 0, 4096, -0.10, 0.10); //Mapear valor ya leido en el rango -0.10 y 0.10
+  float Resultado3 = (0.8 / (1 + pow(e, 90 * (x + 0.01)))) - 0.4;
+  // Convertimos a 8 bits (0-255) centrado para ser más eficiente
+  uint8_t muestra8bit = map(Resultado3, -10, 10, 0, 255); 
+
+
+  Serial.write(muestra8bit); // Enviar el valor al puerto serial no como texto
+  //Serial.println(offsett);
+  delayMicroseconds(45); // Aproximadamente 22.2 kHz pausa para lograr una frecuencia requerida
+}
