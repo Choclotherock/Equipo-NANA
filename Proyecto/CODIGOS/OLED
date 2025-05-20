@@ -1,0 +1,40 @@
+//V.1.0.0
+//Metemos librerias para poder usar los codigos 
+#include <Wire.h> 
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#define ANCHO 128
+#define ALTO 64
+// Definimos valores del tamaño de la pantalla 
+#define OLED_RESET -1
+// Para indicar que no se usara el pin de reset
+Adafruit_SSD1306 display(ANCHO, ALTO, &Wire, OLED_RESET);
+//Ponemos todos los datos de la pantalla
+#define ENTRADA A0
+//Ponemos como se llama la entrada
+
+void setup() {
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+  //Marca que usara alimentacion interna del chip y que su dirrecion I2C es 0x3c
+  display.clearDisplay();
+  //Borra lo que este en la pantalla
+  analogReference(DEFAULT); 
+  //Dice que su referencia analogia seria de 5V
+
+void loop() {
+  display.clearDisplay();
+  //Limpia pantalla
+  for (int x = 0; x < ANCHO; x++) {
+    int valor = analogRead(ENTRADA);           // lectura de 0 a 1023
+    int y = map(valor, 0, 1023, ALTO, 0);       // invertir e igualar a altura de pantalla
+
+    display.drawPixel(x, y, SSD1306_WHITE);
+  // Dibuja el punto
+    delayMicroseconds(300); 
+    //Pequeño delay de la velocidad del barrido
+  }
+
+  display.display();
+  // Actualiza la pantalla
+}
