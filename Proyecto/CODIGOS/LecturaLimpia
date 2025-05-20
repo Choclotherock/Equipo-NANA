@@ -1,0 +1,16 @@
+//V.1.0.0
+#define ENTRADA 34  // Pin analógico conectado al circuito offset
+
+void setup() {
+  Serial.begin(115200);  // Aumenta la velocidad para evitar cuellos de botella
+}
+
+void loop() {
+  int lectura = analogRead(ENTRADA);  // 0 a 4095 (12 bits)
+  
+  // Convertimos a 8 bits (0-255) centrado
+  uint8_t muestra8bit = map(lectura, 0, 4095, 0, 255);
+  // Enviar la muestra como 1 byte
+  Serial.write(muestra8bit);
+  delayMicroseconds(45); // Aproximadamente 22.2 kHz
+}
