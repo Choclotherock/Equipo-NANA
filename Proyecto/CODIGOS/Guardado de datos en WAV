@@ -1,41 +1,33 @@
-V.1.0.1
+V.1.0.2
 import serial
 import wave
 import time
+import struct
 
-# Configura el puerto
 puerto = serial.Serial('COM4', 115200)
 time.sleep(2)
 
-# Parámetros
-sample_rate = 8000
-duracion = 10  # segundos
-num_samples = sample_rate * duracion
-total_bytes = num_samples * 2  # 2 bytes por muestra
+sample_rate = 22050
+duracion = 5  # segundos
+num_muestras = sample_rate * duracion
+
 datos = bytearray()
 
 print("Grabando...")
 
-start = time.time()
-while len(datos) < total_bytes:
+while len(datos) < num_muestras * 2:  # 2 bytes por muestra
     if puerto.in_waiting >= 2:
-        lsb = puerto.read(1)
-        msb = puerto.read(1)
-        datos.extend(lsb + msb)
-    elif time.time() - start > duracion + 2:
-        print("⚠ Tiempo de espera excedido.")
-        break
-    else:
-        time.sleep(0.001)
+        datos.append(puerto.read()[0])  # LSB
+        datos.append(puerto.read()[0])  # MSB
 
 print("Grabación terminada.")
 puerto.close()
 
-# Guardar el archivo
-with wave.open("grabacion32.wav", "wb") as wav_file:
+# Guardar como archivo .wav de 16 bits
+with wave.open("guitarra_16bit.wav", "wb") as wav_file:
     wav_file.setnchannels(1)         # Mono
-    wav_file.setsampwidth(2)         # 2 bytes = 16 bits
+    wav_file.setsampwidth(2)         # 16 bits
     wav_file.setframerate(sample_rate)
     wav_file.writeframes(datos)
 
-print("Archivo guardado como grabacion.wav")
+print("Archivo guardado como guitarra_16bit.wav")
