@@ -1,4 +1,4 @@
-//V.1.0.0
+//V.1.1.0
 //Metemos librerias para poder usar los codigos 
 #include <Wire.h> 
 #include <Adafruit_GFX.h>
@@ -26,8 +26,22 @@ void loop() {
   display.clearDisplay();
   //Limpia pantalla
   for (int x = 0; x < ANCHO; x++) {
-    int valor = analogRead(ENTRADA);           // lectura de 0 a 1023
-    int y = map(valor, 0, 1023, ALTO, 0);       // invertir e igualar a altura de pantalla
+    //es para que haga un barrido en X
+    int valor = analogRead(ENTRADA);
+    // lectura de 0 a 1023
+
+  int centro = ALTO / 2;
+  //Marca el centro de la pantalla
+
+
+  int offset = valor - 512;
+  // leer el valor y centrarlo
+
+
+  int ganancia = 2;
+  // Elijes el "aumento" que va a tener la señal VISUALMENTE
+  int y = centro - (offset * ganancia / 512.0) * (ALTO / 2);
+  // Marca donde estara Y con todo lo anterior mencionado
 
     display.drawPixel(x, y, SSD1306_WHITE);
   // Dibuja el punto
