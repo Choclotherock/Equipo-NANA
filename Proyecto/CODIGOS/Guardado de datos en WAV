@@ -1,33 +1,33 @@
-V.1.0.2
-import serial
+V.1.0.3
+import serial #Se importan las librerias
 import wave
 import time
-import struct
 
-puerto = serial.Serial('COM4', 115200)
-time.sleep(2)
+# Configura el puerto serial
+puerto = serial.Serial('COM4', 115200)  # Ajusta a tu puerto
+time.sleep(2) # Tiempo de delay
 
-sample_rate = 22050
+# Parámetros de grabación
 duracion = 5  # segundos
-num_muestras = sample_rate * duracion
+frecuencia_muestreo = 22050 # Hertz
+num_muestras = duracion * frecuencia_muestreo # Se obtiene el numero de muestras multiplicando la duración y la frecuencia de muestreo
 
-datos = bytearray()
+datos = bytearray() # Se define "datos" como la función bytearray
 
-print("Grabando...")
+print("Grabando...") # Muestra la palabra mientras se hace lo siguiente
 
-while len(datos) < num_muestras * 2:  # 2 bytes por muestra
-    if puerto.in_waiting >= 2:
-        datos.append(puerto.read()[0])  # LSB
-        datos.append(puerto.read()[0])  # MSB
+while len(datos) < num_muestras: # Cuando datos es menor a el numero de muestras
+    if puerto.in_waiting:
+        datos.append(puerto.read()[0])  # Lee 1 byte 
 
-print("Grabación terminada.")
-puerto.close()
+print("Grabación terminada.") 
+puerto.close() # Muestra el mensaje y termina el proceso
 
-# Guardar como archivo .wav de 16 bits
-with wave.open("guitarra_16bit.wav", "wb") as wav_file:
-    wav_file.setnchannels(1)         # Mono
-    wav_file.setsampwidth(2)         # 16 bits
-    wav_file.setframerate(sample_rate)
-    wav_file.writeframes(datos)
+# Guardar como .WAV
+with wave.open("guitarra9.wav", "wb") as wav_file: # Abre el archivo de audio
+    wav_file.setnchannels(1)              # Mono
+    wav_file.setsampwidth(1)              # 8 bits
+    wav_file.setframerate(frecuencia_muestreo) # Se define la frecuencia
+    wav_file.writeframes(datos) # Se escriben los datos brindados
 
-print("Archivo guardado como guitarra_16bit.wav")
+print("Archivo guardado como guitarra.wav") # Muestra como se llama el archivo y que ya quedo modificado
