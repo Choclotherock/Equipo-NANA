@@ -1,31 +1,40 @@
-V.1.0.0
+V.1.0.1
 import serial
 import wave
 import time
 
-# Configura el puerto serial
-puerto = serial.Serial('COM4', 115200)  # Cambia COM3 por tu puerto
-time.sleep(2)  # Espera a que el Arduino reinicie
+# Configura el puerto
+puerto = serial.Serial('COM4', 115200)
+time.sleep(2)
 
-# Parámetros de audio
+# Parámetros
 sample_rate = 8000
 duracion = 10  # segundos
 num_samples = sample_rate * duracion
+total_bytes = num_samples * 2  # 2 bytes por muestra
 datos = bytearray()
 
 print("Grabando...")
 
-while len(datos) < num_samples:
-    if puerto.in_waiting:
-        datos.append(ord(puerto.read()))
+start = time.time()
+while len(datos) < total_bytes:
+    if puerto.in_waiting >= 2:
+        lsb = puerto.read(1)
+        msb = puerto.read(1)
+        datos.extend(lsb + msb)
+    elif time.time() - start > duracion + 2:
+        print("⚠ Tiempo de espera excedido.")
+        break
+    else:
+        time.sleep(0.001)
 
 print("Grabación terminada.")
 puerto.close()
 
-# Guardar como archivo .wav
-with wave.open("grabacion27.wav", "wb") as wav_file:
+# Guardar el archivo
+with wave.open("grabacion32.wav", "wb") as wav_file:
     wav_file.setnchannels(1)         # Mono
-    wav_file.setsampwidth(1)         # 8 bits por muestra
+    wav_file.setsampwidth(2)         # 2 bytes = 16 bits
     wav_file.setframerate(sample_rate)
     wav_file.writeframes(datos)
 
