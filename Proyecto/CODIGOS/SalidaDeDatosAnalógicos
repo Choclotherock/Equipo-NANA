@@ -1,11 +1,13 @@
-//V.1.0.1
+//V.1.0.2
 
-#define ENTRADA 34
-#define pinDAC 25;
+
+#define ENTRADA 34 //Definir pin 34 como entrada de datos
+#define pinDAC1 25; //Definir el pin DAC a utilizar
 
 void setup() {
-Serial.begin(115200);
+  Serial.begin(9600); // Inicializa la comunicación serie a 9600 baudios
  }
 void loop() {
-   int LeerDatos=analogRead(34);
+   int LeerDatos=analogRead(ENTRADA); //Función para leer datos analógicos del pin de entrada
+   }
    }
