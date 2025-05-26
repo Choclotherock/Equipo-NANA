@@ -1,2 +1,11 @@
-//V.1.0.0
+//V.1.0.1
+
 #define ENTRADA 34
+#define pinDAC 25;
+
+void setup() {
+Serial.begin(115200);
+ }
+void loop() {
+   int LeerDatos=analogRead(34);
+   }
