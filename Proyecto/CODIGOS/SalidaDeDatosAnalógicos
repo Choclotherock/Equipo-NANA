@@ -1,6 +1,6 @@
-//V.1.0.3
+//V.1.0.4
 
-#define ENTRADA 34 //Pin analógico (potenciómetro)
+#define ENTRADA 34 //Pin analógico
 #define pinDAC1 25 //Pin DAC1-GPIO25 (salida analógica real)
 
 void setup() {
