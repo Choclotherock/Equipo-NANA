@@ -1,5 +1,5 @@
-//V.1.1.0
-// CODIGO PRINCIPAL 
+//V.1.1.1
+//CODIGO FINAL
 #define ENTRADA 34      // Pin analógico conectado al circuito offset
 #define pinDAC1 25      // Pin de salida del DAC integrado
 
@@ -17,14 +17,22 @@ void loop() {
   float lectura = analogRead(ENTRADA); // Leer señal con offset
 
   float x = mapFloat(lectura, 0, 4096, -1.0, 1.0);
-  float Resultado = (0.4/ (1 + pow(e, 10 * (x-0.03)))) - 0.2;
 
-  //Aumento de ganancia 
+  float Resultado = (0.4/ (1 + pow(e, 10 * (x-0.03)))) - 0.2;
+  float Resultado2 = (0.6 / (1 + pow(e, 90 * (x + 0.02)))) - 0.3;
+  float Resultado3 = (0.8 / (1 + pow(e, 90 * (x + 0.01)))) - 0.4;
+  float Resultado4 = (1.0 / (1 + pow(e, 90 * (x + 0.01)))) - 0.5;
+  float Resultado5 = (1.2 / (1 + pow(e, 70 * (x + 0.02)))) - 0.6;
+  float Resultado6 = (1.4 / (1 + pow(e, 60 * (x - 0.03)))) - 0.7;
+  float Resultado7 = (1.6 / (1 + pow(e, 65 * (x - 0.04)))) - 0.8;
+
   float ResultadoAmplificado = Resultado * 1.0;  // Ganancia ajustable
   ResultadoAmplificado = constrain(ResultadoAmplificado, -1.0, 1.0);  // Seguridad
 
-  // Mapear a 8 bits con mejor resolución
   uint8_t muestra8bit = (uint8_t) mapFloat(ResultadoAmplificado, -1.0, 1.0, 0, 255);
+
   dacWrite(pinDAC1, muestra8bit); // Salida al DAC
+
+
   delayMicroseconds(45); // ≈100 Hz de muestreo, podés bajarlo para mayor resolución de audio
 }
