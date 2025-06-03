@@ -1,22 +1,15 @@
-//V.1.0.4
-
-#define ENTRADA 34 //Pin analógico
-#define pinDAC1 25 //Pin DAC1-GPIO25 (salida analógica real)
+//V.1.0.5
+// CODIGO DE SALIDA FUNCIONAL LIMPIO
+#define ENTRADA 34 //Pin analógico (Entrada de audio)
+#define pinDAC1 25 //Pin DAC1-GPIO25 (salida DAC)
 
 void setup() {
-  Serial.begin(115200);
-  analogReadResolution(12); //Resolución de 0 a 4095-12bits
+
 }
 
 void loop() {
   int LeerDatos = analogRead(ENTRADA); //Leer valor analógico de 0 a 4095
-  int ValorDAC = map(LeerDatos, 0, 4095, 0, 255); //12 y 8 bits para el DAC 
+  int8_t ValorDAC = map(LeerDatos, 0, 4095, 0, 255); //12 y 8 bits para el DAC 
   dacWrite(pinDAC1, ValorDAC);//Escribir al DAC (0-255)
-  //Imprimir datos
-  Serial.print("Valor Leído: ");
-  Serial.print(LeerDatos);
-  Serial.print("DAC: ");
-  Serial.print(ValorDAC);
-  
-  delay(10);
+delayMicroseconds(45);
 }
